@@ -8,13 +8,13 @@ module.exports.loop = function () {
     {
 
         if (typeof Game.creeps['Harvester1'] == 'undefined'){
-            spawn.createCreep([WORK, CARRY, MOVE], 'Harvester1', {role: 'harvester'});}
+            spawn.createCreep([WORK, CARRY, CARRY, MOVE], 'Harvester1', {role: 'harvester'});}
 
         else if (typeof Game.creeps['Upgrader1'] == 'undefined'){
-            spawn.createCreep([WORK, CARRY, MOVE], 'Upgrader1', {role: 'upgrader'});}
+            spawn.createCreep([WORK, CARRY, CARRY, MOVE], 'Upgrader1', {role: 'upgrader'});}
 
         else if (typeof Game.creeps['Builder1'] == 'undefined'){
-            spawn.createCreep([WORK, CARRY, MOVE], 'Builder1', {role: 'builder'});}
+            spawn.createCreep([WORK, CARRY, CARRY, MOVE], 'Builder1', {role: 'builder'});}
 
             spawn.room.createConstructionSite(24, 25, STRUCTURE_CONTAINER);
             spawn.room.createConstructionSite(25, 26, STRUCTURE_CONTAINER);
