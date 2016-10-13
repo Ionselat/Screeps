@@ -1,10 +1,16 @@
 module.exports = {
     run (creep, source, spawn, energyLevel, status)
     {
-        var storeCont = creep.room.find(StructureStorage);
+        var targets = creep.room.find(FIND_STRUCTURES , {
+                    filter: (structure) => {
+                        return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN) &&
+                            structure.energy < structure.energyCapacity;
+                    }
+            });
+            
 
-        if(creep.transfer(storeCont, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE)
-            creep.moveTo(storeCont);
+        if(status == 'gathering' && targets.length > 0 && creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE)
+            creep.moveTo(targets[0]);
 
         if(energyLevel == 0)
             creep.memory.status = 'gathering';
