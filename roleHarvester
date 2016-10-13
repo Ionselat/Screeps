@@ -1,0 +1,24 @@
+module.exports = {
+    run (creep, source, spawn, energyLevel, status)
+    {
+        var storeCont = creep.room.find(StructureStorage);
+
+        if(creep.transfer(storeCont, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE)
+            creep.moveTo(storeCont);
+
+        if(energyLevel == 0)
+            creep.memory.status = 'gathering';
+
+        if(energyLevel == creep.carryCapacity)
+            creep.memory.status = 'transferring';
+
+        if(status == 'gathering' && creep.harvest(source[0]) == ERR_NOT_IN_RANGE)
+        {
+            creep.moveTo(source[0]);
+            creep.say('gathering');
+        }
+
+        if(status == 'transferring' && creep.transfer(spawn, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE)
+            creep.moveTo(spawn);
+    }
+};
