@@ -1,0 +1,25 @@
+module.exports = {
+    run (creep, source, energyLevel, status){
+        if(energyLevel == 0)
+            creep.memory.status = 'gathering';
+
+        if(energyLevel == creep.carryCapacity)
+            creep.memory.status = 'building';
+
+        if(status == 'gathering' && creep.harvest(source[0]) == ERR_NOT_IN_RANGE)
+        {
+            creep.moveTo(source[0]);
+            creep.say('gathering');
+        }
+
+        if(status == 'building')
+        {
+            var target = creep.room.find(FIND_MY_CONSTRUCTION_SITES);
+            for(var name in target)
+            {
+                if(creep.build(target[name]) == ERR_NOT_IN_RANGE)
+                creep.moveTo(target[name]);
+            }
+        }
+    }
+};
