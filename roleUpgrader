@@ -1,0 +1,21 @@
+module.exports = {
+    run (creep, source, energyLevel, status){
+
+        if(energyLevel == 0)
+            creep.memory.status = 'gathering';
+
+        if(status == 'gathering' && creep.harvest(source[0]) == ERR_NOT_IN_RANGE)
+        {
+            creep.moveTo(source[0]);
+            creep.say('gathering');
+        }
+        if(energyLevel == creep.carryCapacity)
+            creep.memory.status = 'upgrading';
+
+        if(status == 'upgrading' && creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE)
+        {
+            creep.moveTo(creep.room.controller);
+            creep.say('upgrading')
+        }
+    }
+};
