@@ -34,7 +34,7 @@ module.exports.loop = function () {
         //Change Harveser to Builder if Spawn Energy is Full
         if (creep.memory.role == 'harvester' )
         {
-            if(creep.room.energyAvailable < creep.room.energyCapacityAvailable)
+            if(creep.room.energyAvailable == creep.room.energyCapacityAvailable)
             {
                 creep.memory.role = 'builder';
                 creep.memory.status = 'building';
