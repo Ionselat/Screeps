@@ -1,0 +1,50 @@
+var roleHarvester = require("roleHarvester");
+var roleUpdater = require("roleUpgrader");
+var roleBuilder = require("roleBuilder");
+module.exports = {
+    run(spawn)
+    {
+    
+    for (var name in Game.creeps)
+        {
+            var creep = Game.creeps[name];
+            var source = creep.room.find(FIND_SOURCES);
+            var energyLevel = creep.carry.energy;
+            var status = creep.memory.status;
+            var role = creep.memory.role;
+    
+            //Change Harveser to Builder if Spawn Energy is Full
+            if (creep.memory.role == 'harvester' )
+            {
+                if(creep.room.energyAvailable == creep.room.energyCapacityAvailable)
+                {
+                    creep.memory.role = 'builder';
+                    creep.memory.status = 'building';
+                    return;
+                }
+    
+                roleHarvester.run(creep, source, spawn, energyLevel, status);
+    
+                //Game.spawns['Spawn1'].createCreep({CARRY, CARRY, MOVE, MOVE, WORK, WORK}, 'BigHarvester1', {role: 'harvester'});
+            }
+    
+            if (role == 'upgrader')
+                roleUpdater.run(creep, source, energyLevel, status);
+    
+            if (role == 'builder')
+            {
+                if(creep.room.energyAvailable < creep.room.energyCapacityAvailable)
+                {
+                    if(creep.name == 'Harvester1')
+                    {
+                        creep.memory.role = 'harvester';
+                        creep.memory.status = 'gathering';
+                        return;
+                    }
+                }
+    
+                roleBuilder.run(creep, source, energyLevel, status);
+            }
+        }
+    }
+};
