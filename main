@@ -8,19 +8,19 @@ module.exports.loop = function () {
     {
 
         if (typeof Game.creeps['Harvester1'] == 'undefined'){
-            spawn.createCreep([WORK, CARRY, MOVE], 'Harvester1', {role: 'harvester'});}
+            spawn.createCreep([WORK, CARRY, CARRY, MOVE], 'Harvester1', {role: 'harvester'});}
 
         else if (typeof Game.creeps['Upgrader1'] == 'undefined'){
-            spawn.createCreep([WORK, CARRY, MOVE], 'Upgrader1', {role: 'upgrader'});}
+            spawn.createCreep([WORK, CARRY, CARRY, MOVE], 'Upgrader1', {role: 'upgrader'});}
 
         else if (typeof Game.creeps['Builder1'] == 'undefined'){
-            spawn.createCreep([WORK, CARRY, MOVE], 'Builder1', {role: 'builder'});}
+            spawn.createCreep([WORK, CARRY, CARRY, MOVE], 'Builder1', {role: 'builder'});}
 
-            spawn.room.createConstructionSite(24, 25, STRUCTURE_EXTENSION);
-            spawn.room.createConstructionSite(25, 26, STRUCTURE_EXTENSION);
-            spawn.room.createConstructionSite(26, 26, STRUCTURE_EXTENSION);
-            spawn.room.createConstructionSite(27, 26, STRUCTURE_EXTENSION);
-            spawn.room.createConstructionSite(28, 25, STRUCTURE_EXTENSION);
+            spawn.room.createConstructionSite(spawn.pos.x -1, spawn.pos.y, STRUCTURE_EXTENSION);
+            spawn.room.createConstructionSite(spawn.pos.x -1, spawn.pos.y +1, STRUCTURE_EXTENSION);
+            spawn.room.createConstructionSite(spawn.pos.x, spawn.pos.y +1, STRUCTURE_EXTENSION);
+            spawn.room.createConstructionSite(spawn.pos.x +1, spawn.pos.y +1, STRUCTURE_EXTENSION);
+            spawn.room.createConstructionSite(spawn.pos.x +1 , spawn.pos.y , STRUCTURE_EXTENSION);
     }
 
     for (var name in Game.creeps)
@@ -34,7 +34,7 @@ module.exports.loop = function () {
         //Change Harveser to Builder if Spawn Energy is Full
         if (creep.memory.role == 'harvester' )
         {
-            if (spawn.energy == spawn.energyCapacity)
+            if(creep.room.energyAvailable < creep.room.energyCapacityAvailable)
             {
                 creep.memory.role = 'builder';
                 creep.memory.status = 'building';
@@ -51,11 +51,10 @@ module.exports.loop = function () {
 
         if (role == 'builder')
         {
-            if(spawn.energy < spawn.energyCapacity)
+            if(creep.room.energyAvailable < creep.room.energyCapacityAvailable)
             {
                 if(creep.name == 'Harvester1')
                 {
-                    console.log('here');
                     creep.memory.role = 'harvester';
                     creep.memory.status = 'gathering';
                     return;
@@ -63,8 +62,6 @@ module.exports.loop = function () {
             }
 
             roleBuilder.run(creep, source, energyLevel, status);
-            //console.log(creep.name);
-
         }
     }
 }
