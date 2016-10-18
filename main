@@ -1,4 +1,3 @@
-
 var roleManager = require("roleManager");
 var spawn = Game.spawns['Spawn1'];
 
@@ -20,6 +19,9 @@ module.exports.loop = function () {
             spawn.room.createConstructionSite(spawn.pos.x, spawn.pos.y +1, STRUCTURE_EXTENSION);
             spawn.room.createConstructionSite(spawn.pos.x +1, spawn.pos.y +1, STRUCTURE_EXTENSION);
             spawn.room.createConstructionSite(spawn.pos.x +1 , spawn.pos.y , STRUCTURE_EXTENSION);
+            
+        if(typeof Game.creeps['BigHarvester1'] == 'undefined' && spawn.room.energyAvailable >= 500)
+         Game.spawns['Spawn1'].createCreep({CARRY, CARRY, MOVE, MOVE, WORK, WORK}, 'BigHarvester1', {role: 'harvester'});
     }
 
     roleManager.run(spawn);
