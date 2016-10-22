@@ -14,6 +14,19 @@ module.exports.loop = function () {
         else if (typeof Game.creeps['Builder1'] == 'undefined'){
             spawn.createCreep([WORK, CARRY, CARRY, MOVE], 'Builder1', {role: 'builder'});}
 
+
+
+            spawn.room.createConstructionSite(20, 17, STRUCTURE_WALL);
+            spawn.room.createConstructionSite(20, 18, STRUCTURE_WALL);
+            spawn.room.createConstructionSite(20, 19, STRUCTURE_WALL);
+            spawn.room.createConstructionSite(20, 21, STRUCTURE_WALL);
+            spawn.room.createConstructionSite(21, 21, STRUCTURE_WALL);
+            spawn.room.createConstructionSite(21, 22, STRUCTURE_WALL);
+            spawn.room.createConstructionSite(21, 23, STRUCTURE_WALL);
+            spawn.room.createConstructionSite(21, 24, STRUCTURE_WALL);
+            spawn.room.createConstructionSite(21, 25, STRUCTURE_WALL);
+            
+
             spawn.room.createConstructionSite(spawn.pos.x -1, spawn.pos.y, STRUCTURE_EXTENSION);
             spawn.room.createConstructionSite(spawn.pos.x -1, spawn.pos.y +1, STRUCTURE_EXTENSION);
             spawn.room.createConstructionSite(spawn.pos.x, spawn.pos.y +1, STRUCTURE_EXTENSION);
